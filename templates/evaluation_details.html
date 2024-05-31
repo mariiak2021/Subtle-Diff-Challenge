@@ -1,1 +1,39 @@
-<p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+<h2>Dataset</h2>
+        <p>
+            To evaluate the performance of the proposed models in the challenge, we propose using a new Subtle-Diff evaluation dataset. This dataset was constructed using LLMs and image generation models to automatically generate similar image pairs containing subtle differences. Human annotators additionally described the differences in the generated image pairs with text. Subtle-Diff consists of 2,802 image pairs with 12,828 annotations for 570 different objects (see Table 1). Examples of images and captions from the Subtle-Diff dataset can be found in Figure 2.
+        </p>
+        
+        <div class="table-container">
+            <table>
+                <caption>Table 1. Dataset Statistics</caption>
+                <tr>
+                    <th>Image pairs</th>
+                    <th>Annotations</th>
+                    <th>Objects</th>
+                    <th>Annotators</th>
+                    <th>Vocabulary</th>
+                    <th>Sentence length</th>
+                </tr>
+                <tr>
+                    <td>2,802</td>
+                    <td>12,828</td>
+                    <td>570</td>
+                    <td>11</td>
+                    <td>1,930</td>
+                    <td>12.78 (average)</td>
+                </tr>
+            </table>
+        </div>
+        
+        <h2>Evaluation Metrics</h2>
+        <p>
+            For the difference image selection task, which is a binary classification task, we propose to use accuracy as the evaluation metric. 
+        </p>
+        <p>
+            For the conditional difference captioning task, evaluation can be conducted using BLEU-4 and CIDEr metrics, widely used in image captioning tasks. Furthermore, the semantic alignment between predicted and correct texts can be assessed using GPT-4, facilitating the calculation of recall and precision. Recall is the proportion of all captions that semantically matched at least one of the ground truth texts. Precision is the proportion of annotations, excluding those described as having no difference, that were accurately matched to the image pairs.
+        </p>
+        
+        <div class="image-container">
+            <img src="figure2.png" alt="Figure 2: Examples of images and captions from the Subtle-Diff dataset">
+            <p>Figure 2: Examples of images and captions from the Subtle-Diff dataset</p>
+        </div>
