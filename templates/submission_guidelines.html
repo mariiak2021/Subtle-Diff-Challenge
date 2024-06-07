@@ -7,6 +7,31 @@
         <ul>
             <li>Accuracy (as it’s a binary classification task)</li>
         </ul>
+        <h3>Details od submission format</h3>
+         <p>The submission file should be in JSON format and should contain the image name and the key, and answer("After" or "Before") for each pair. Here is an example:</p>
+    <pre>
+{
+  "name": "test/v1_1010_oboe",
+  "attributes": [
+      {
+          "key": "shape_0",
+          "answer": "X"
+      },
+      {
+          "key": "color_1",
+          "answer": "X"
+      },
+      {
+          "key": "texture_2",
+          "answer": "X"
+      },
+      {
+          "key": "texture_3",
+          "answer": "X"
+      }
+  ]
+}
+    </pre>
 
         <h2>2) Conditional Difference Captioning Task</h2>
         <p>The goal of this task is to describe the minor differences in shape, color, or texture between two images.</p>
@@ -16,5 +41,32 @@
             <li>CIDEr (measures the similarity between generated and reference captions)</li>
             <li>GPT-4 (measures the meaning similarity over sentence structures)</li>
         </ul>
+
+        <h3>Submission Format</h3>
+    <p>The submission file should be in JSON format and should contain the images name, and attributes with detailed descriptions. Here is an example:</p>
+    <pre>
+{
+  "name": "test/v1_1010_oboe",
+  "attributes": [
+      {
+          "key": "shape_0",
+          "value": "The oboe in image 1 xxxxxxxx."
+      },
+      {
+          "key": "color_1",
+          "value": "The oboe in image 1 xxxxxxxx."
+      },
+      {
+          "key": "texture_2",
+          "value": "The oboe in image 1 xxxxxxxx."
+      },
+      {
+          "key": "texture_3",
+          "value": "The oboe in image 1 xxxxxxxx."
+      }
+  ]
+}
+    </pre>
+
 
 <p>Partiipants are free to participate either in both phases or just 1 of them. The phases will be evaluated separately and winners will be announced for both tasks.</p>
