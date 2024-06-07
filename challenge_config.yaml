@@ -15,7 +15,7 @@ start_date: 2024-06-07 00:00:00
 end_date: 2024-07-07 23:59:59
 published: False
 
-leaderboard:s
+leaderboard:
   - id: 1
     schema:
       {
@@ -28,7 +28,8 @@ leaderboard:s
           }
         }
       }
-    - id: 2
+
+  - id: 2
     schema:
       {
         "labels": ["BLEU-4", "CIDEr", "GPT-4", "Total"],
