@@ -80,18 +80,6 @@ challenge_phases:
         description: Authors of the method
         type: text
         required: False
-      - name: SingleOptionAttribute
-        description: Sample
-        type: radio
-        options: ["A", "B", "C"]
-      - name: MultipleChoiceAttribute
-        description: Sample
-        type: checkbox
-        options: ["alpha", "beta", "gamma"]
-      - name: TrueFalseField
-        description: Sample
-        type: boolean
-        required: True
     is_restricted_to_select_one_submission: False
     is_partial_submission_evaluation_enabled: False
     allowed_submission_file_types: ".json"
