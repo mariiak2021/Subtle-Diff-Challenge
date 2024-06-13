@@ -5,7 +5,7 @@ short_description: Subtle Differences Recognition Challenge Among Visually Simil
 description: templates/description.html
 evaluation_details: templates/evaluation_details.html
 terms_and_conditions: templates/terms_and_conditions.html
-image: logo2.JPG
+image: logo2.jpg
 submission_guidelines: templates/submission_guidelines.html
 leaderboard_description: Leadership board consists of 2 tasks (captioning and classification), which will be evaluated separately.
 evaluation_script: evaluation_script.zip
