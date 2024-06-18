@@ -66,7 +66,7 @@ def calculate_accuracy(test_annotation_file, user_submission_file):
     return accuracy
 
 
-def evaluate(test_annotation_file, user_submission_file, phase_codename, **kwargs):
+def evaluate_accuracy(test_annotation_file, user_submission_file, phase_codename, **kwargs):
     print("Starting test.....")
     """
     Evaluates the submission for a particular challenge phase and returns score
