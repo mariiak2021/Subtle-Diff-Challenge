@@ -1,4 +1,6 @@
 import random
+from challenge_1.main import evaluate_accuracy
+from challenge_2.main import evaluate_bleu_cider
 
 
 def evaluate(test_annotation_file, user_submission_file, phase_codename, **kwargs):
@@ -40,42 +42,41 @@ def evaluate(test_annotation_file, user_submission_file, phase_codename, **kwarg
         }
     """
     output = {}
-    if phase_codename == "dev":
-        print("Evaluating for Dev Phase")
-        output["result"] = [
-            {
-                "train_split": {
-                    "Metric1": random.randint(0, 99),
-                    "Metric2": random.randint(0, 99),
-                    "Metric3": random.randint(0, 99),
-                    "Total": random.randint(0, 99),
-                }
-            }
-        ]
-        # To display the results in the result file
-        output["submission_result"] = output["result"][0]["train_split"]
+    if phase_codename == "Difference Image Selection Task":
+        print("Evaluating for Difference Image Selection Task")
+        results = evaluate_accuracy(test_annotation_file, user_submission_file, phase_codename, **kwargs)
+        output = results
+        # output["result"] = [
+        #     {
+        #         "test_split": {
+        #             "Accuracy": accuracy,
+        #         }
+        #     }
+        # ]
+        # # To display the results in the result file
+        # output["submission_result"] = output["result"][0]["test_split"]
         print("Completed evaluation for Dev Phase")
-    elif phase_codename == "test":
-        print("Evaluating for Test Phase")
-        output["result"] = [
-            {
-                "train_split": {
-                    "Metric1": random.randint(0, 99),
-                    "Metric2": random.randint(0, 99),
-                    "Metric3": random.randint(0, 99),
-                    "Total": random.randint(0, 99),
-                }
-            },
-            {
-                "test_split": {
-                    "Metric1": random.randint(0, 99),
-                    "Metric2": random.randint(0, 99),
-                    "Metric3": random.randint(0, 99),
-                    "Total": random.randint(0, 99),
-                }
-            },
-        ]
-        # To display the results in the result file
-        output["submission_result"] = output["result"][0]
+    elif phase_codename == "Conditional Difference Captioning Task":
+        print("Evaluating for Conditional Difference Captioning Task")
+        results = evaluate_bleu_cider(test_annotation_file, user_submission_file, phase_codename, **kwargs)
+        output = results
+        # output["result"] = [
+        #     {
+        #         "test_split": {
+        #
+        #             "Total": random.randint(0, 99),
+        #         }
+        #     },
+        #     {
+        #         "test_split": {
+        #             "Metric1": random.randint(0, 99),
+        #             "Metric2": random.randint(0, 99),
+        #             "Metric3": random.randint(0, 99),
+        #             "Total": random.randint(0, 99),
+        #         }
+        #     },
+        # ]
+        # # To display the results in the result file
+        # output["submission_result"] = output["result"][0]
         print("Completed evaluation for Test Phase")
     return output
