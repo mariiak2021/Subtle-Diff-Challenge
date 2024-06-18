@@ -58,64 +58,65 @@ def get_bleu_cider_gpt(test_annotation_file, user_submission_file):
     user_eval = {f"{i}": [comp["user_answer"]] for i, comp in enumerate(valid_comparisons)}
 
     result = eval(gt_eval, user_eval)
-    gpt_similarity = get_gpt4_eval(gt_eval, user_eval)
+    # gpt_similarity = get_gpt4_eval(gt_eval, user_eval)
 
-    return result['bleu'], result['cider'], gpt_similarity
-
-
-def get_gpt4_eval(gt_answers, user_answers):
-
-    gpt_description = "Create a scoring system that evaluates the sentences in the results for their ability to capture the same or equivalent meanings as those in the reference text, especially when describing changes in serial images. " \
-                      "The total score is 100, with the lowest being 0. " \
-                      "This system should focus on interpreting the underlying meanings, implications, and context of the descriptions, beyond their literal wordings. " \
-                      "Regardless of the order of sentences in the reference text and results. " \
-                      "Start by identifying all key changes or observations mentioned in the reference text. Then, distribute the total score (100 points) evenly across these key points. " \
-                      "When evaluating the results, it is crucial to assess the essence and the deeper implications of each description, considering metaphors, comparative language, and contextual cues. " \
-                      "For example, descriptions like 'sun rays make A brighter than B,' 'B has more clouds than A,' 'A is more bluish than B,' and 'A is brighter than B' can all imply similar observations, despite their varied expressions. " \
-                      "Award full points for results that, despite different phrasing, align closely in meaning and implication with the reference. " \
-                      "Deduct points for significant discrepancies or for descriptions that differ fundamentally from the reference in essence. " \
-                      "This approach values the nuanced understanding of descriptive language and its context, recognizing the importance of interpreting beyond just the literal expressions. " \
-                      "Output the final score in the format 'Final Score: [score] out of 100 points.', if there are no sentences, please score it as 0."
-    openai.api_key = api_key
-
-    eval_similarity = {}
-    random_data_sample = random.sample(list(enumerate(gt_answers.items())), 10)
-    similarity_score = []
-    for i, (key, gts) in enumerate(random_data_sample):
-        res = user_answers[str(key)][0]
-
-        while True:
-            try:
-                # 画像ABのJson形式の情報を渡す。
-                response = openai.ChatCompletion.create(
-                    model='gpt-4',
-                    messages=[
-                        {"role": "system", "content": gpt_description},
-                        {"role": "user",
-                         "content": f'The reference text is {gts[0]} '
-                                    f'and result text is {res}.'}
-                    ]
-                )
-
-                break
-            except openai.error.Timeout as te:
-                print('TimeoutError')
-                print(te)
+    # return result['bleu'], result['cider'], gpt_similarity
+    return result['bleu'], result['cider']
 
 
-        result = response['choices'][0]['message']['content']
-        # print(result)
-        eval_similarity.update({str(i): [result]})
+# def get_gpt4_eval(gt_answers, user_answers):
 
-        final_score_pattern = r"(\d+) out of 100 points"
-        match = re.search(final_score_pattern, result)
+    # gpt_description = "Create a scoring system that evaluates the sentences in the results for their ability to capture the same or equivalent meanings as those in the reference text, especially when describing changes in serial images. " \
+    #                   "The total score is 100, with the lowest being 0. " \
+    #                   "This system should focus on interpreting the underlying meanings, implications, and context of the descriptions, beyond their literal wordings. " \
+    #                   "Regardless of the order of sentences in the reference text and results. " \
+    #                   "Start by identifying all key changes or observations mentioned in the reference text. Then, distribute the total score (100 points) evenly across these key points. " \
+    #                   "When evaluating the results, it is crucial to assess the essence and the deeper implications of each description, considering metaphors, comparative language, and contextual cues. " \
+    #                   "For example, descriptions like 'sun rays make A brighter than B,' 'B has more clouds than A,' 'A is more bluish than B,' and 'A is brighter than B' can all imply similar observations, despite their varied expressions. " \
+    #                   "Award full points for results that, despite different phrasing, align closely in meaning and implication with the reference. " \
+    #                   "Deduct points for significant discrepancies or for descriptions that differ fundamentally from the reference in essence. " \
+    #                   "This approach values the nuanced understanding of descriptive language and its context, recognizing the importance of interpreting beyond just the literal expressions. " \
+    #                   "Output the final score in the format 'Final Score: [score] out of 100 points.', if there are no sentences, please score it as 0."
+    # openai.api_key = api_key
 
-        # Extract the score
-        final_score = match.group(1) if match else None
-        if final_score is not None:
-            similarity_score.append(int(final_score))
+    # eval_similarity = {}
+    # random_data_sample = random.sample(list(enumerate(gt_answers.items())), 10)
+    # similarity_score = []
+    # for i, (key, gts) in enumerate(random_data_sample):
+    #     res = user_answers[str(key)][0]
 
-    return sum(similarity_score)/ len(similarity_score)
+    #     while True:
+    #         try:
+    #             # 画像ABのJson形式の情報を渡す。
+    #             response = openai.ChatCompletion.create(
+    #                 model='gpt-4',
+    #                 messages=[
+    #                     {"role": "system", "content": gpt_description},
+    #                     {"role": "user",
+    #                      "content": f'The reference text is {gts[0]} '
+    #                                 f'and result text is {res}.'}
+    #                 ]
+    #             )
+
+    #             break
+    #         except openai.error.Timeout as te:
+    #             print('TimeoutError')
+    #             print(te)
+
+
+    #     result = response['choices'][0]['message']['content']
+    #     # print(result)
+    #     eval_similarity.update({str(i): [result]})
+
+    #     final_score_pattern = r"(\d+) out of 100 points"
+    #     match = re.search(final_score_pattern, result)
+
+    #     # Extract the score
+    #     final_score = match.group(1) if match else None
+    #     if final_score is not None:
+    #         similarity_score.append(int(final_score))
+
+    # return sum(similarity_score)/ len(similarity_score)
 
 
 def evaluate(test_annotation_file, user_submission_file, phase_codename, **kwargs):
@@ -159,14 +160,13 @@ def evaluate(test_annotation_file, user_submission_file, phase_codename, **kwarg
     output = {}
     if phase_codename == "dev":
         print("Evaluating for Dev Phase")
-        bleu, cider, gpt_similarity = get_bleu_cider_gpt(test_annotation_file, user_submission_file)
+        bleu, cider = get_bleu_cider_gpt(test_annotation_file, user_submission_file)
         output["result"] = [
             {
                 "train_split": {
                     "BLEU-4": bleu,
                     "CIDEr": cider,
-                    "GPT-4": gpt_similarity,
-                    "Total": (bleu + cider + gpt_similarity)/3,
+                    "Total": (bleu + cider)/2,
                 }
             }
         ]
@@ -175,22 +175,20 @@ def evaluate(test_annotation_file, user_submission_file, phase_codename, **kwarg
         print("Completed evaluation for Dev Phase")
     elif phase_codename == "test":
         print("Evaluating for Test Phase")
-        bleu, cider, gpt_similarity = get_bleu_cider_gpt(test_annotation_file, user_submission_file)
+        bleu, cider = get_bleu_cider_gpt(test_annotation_file, user_submission_file)
         output["result"] = [
             {
                 "train_split": {
                     "BLEU-4": bleu,
                     "CIDEr": cider,
-                    "GPT-4": gpt_similarity,
-                    "Total": (bleu + cider + gpt_similarity)/3,
+                    "Total": (bleu + cider)/2,
                 }
             },
             {
                 "test_split": {
                     "BLEU-4": bleu,
                     "CIDEr": cider,
-                    "GPT-4": gpt_similarity,
-                    "Total": (bleu + cider + gpt_similarity)/3,
+                    "Total": (bleu + cider)/2,
                 }
             },
         ]
