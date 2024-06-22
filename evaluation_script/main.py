@@ -1,11 +1,13 @@
 import random
-from __init__ import *
+
 #from challenge_1.main import evaluate_accuracy
 #from challenge_2.main import evaluate_bleu_cider
+from challenge_1.main import evaluate_accuracy
+from challenge_2.main import evaluate_bleu_cider
 
 
 def evaluate(test_annotation_file, user_submission_file, phase_codename, **kwargs):
-    print("Starting Evaluation.....")
+    print("Starting Evaluation.....1")
     """
     Evaluates the submission for a particular challenge phase and returns score
     Arguments:
@@ -42,6 +44,9 @@ def evaluate(test_annotation_file, user_submission_file, phase_codename, **kwarg
             'submitted_at': u'2017-03-20T19:22:03.880652Z'
         }
     """
+    print(kwargs['submission_metadata'])
+    print ("")
+    print(phase_codename)
     output = {}
     if phase_codename == "dif":
         print("Evaluating for Difference Image Selection Task")

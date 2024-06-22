@@ -14,8 +14,8 @@ def run():
     sys.path.append("{}/challenge_data/challenge_1".format(current_working_directory))
 
     challenge_id = 1
-    challenge_phase = "test"  # Add the challenge phase codename to be tested
-    annotation_file_path = "{}/annotations/class_renamed_test_annotations.json".format(
+    challenge_phase = "cond"  # Add the challenge phase codename to be tested
+    annotation_file_path = "{}/annotations/capt_renamed_test_annotations.json".format(
         current_working_directory
     )  # Add the test annotation file path
     user_submission_file_path = "{}/submission.json".format(
@@ -35,7 +35,7 @@ def run():
         "input_file": "https://abc.xyz/path/to/submission/file.json",
         "execution_time": u"123",
         "publication_url": u"ABC",
-        "challenge_phase": "dif",
+        "challenge_phase": "cond",
         "created_by": u"ABC",
         "stdout_file": "file2.json",
         "method_name": u"Test",

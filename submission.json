@@ -1,23 +1,22 @@
-{
+[{
     "name": "test/v1_1010_oboe",
     "attributes": [
         {
             "key": "shape_0",
-            "answer": "X"
+            "value": "The oboe in image 1 has a rounded bulging in the Bell part compared to the image 2."
         },
         {
             "key": "color_1",
-            "answer": "X"
+            "value": "The oboe in image 1 has a rounded bulging in the Bell part compared to the image 2."
         },
         {
             "key": "texture_2",
-            "answer": "X"
+            "value": "The oboe in image 1 has a rounded bulging in the Bell part compared to the image 2."
         },
         {
             "key": "texture_3",
-            "answer": "X"
+            "value": "The oboe in image 1 has a rounded bulging in the Bell part compared to the image 2."
         }
     ]
-  }
-  
+  }]
   

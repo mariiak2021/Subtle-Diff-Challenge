@@ -1,9 +1,9 @@
 import random
 import json
-from bleu_cider.pycocoevalcap.eval import eval
-import openai
+from .bleu_cider.pycocoevalcap.eval import eval2
+#import openai
 import re
-
+'''
 def load_config(file_path):
     with open(file_path, 'r') as file:
         return json.load(file)
@@ -17,7 +17,7 @@ config = load_config(config_file_path)
 api_key = config.get('OPENAI_API_KEY')
 if api_key is None:
     raise ValueError("No OpenAI API key found in config file.")
-
+'''
 
 
 def load_data(annoation_file):
@@ -56,8 +56,11 @@ def get_bleu_cider_gpt(test_annotation_file, user_submission_file):
     # Prepare data for evaluation
     gt_eval = {f"{i}": [comp["gt_answer"]] for i, comp in enumerate(valid_comparisons)}
     user_eval = {f"{i}": [comp["user_answer"]] for i, comp in enumerate(valid_comparisons)}
-
-    result = eval(gt_eval, user_eval)
+    print (type(gt_eval))
+    print ("")
+    print (type(user_eval))
+    result = eval2(gt_eval, user_eval)
+    print ("result", result)
     # gpt_similarity = get_gpt4_eval(gt_eval, user_eval)
 
     # return result['bleu'], result['cider'], gpt_similarity
@@ -118,19 +121,12 @@ def evaluate_bleu_cider(test_annotation_file, user_submission_file, phase_codena
         # To display the results in the result file
         output["submission_result"] = output["result"][0]["train_split"]
         print("Completed evaluation for Dev Phase")
-    elif phase_codename == "test":
+    elif phase_codename == "cond":
         print("Evaluating for Test Phase")
         bleu, cider = get_bleu_cider_gpt(test_annotation_file, user_submission_file)
         output["result"] = [
             {
                 "train_split": {
-                    "BLEU-4": bleu,
-                    "CIDEr": cider,
-                    "Total": (bleu + cider)/2,
-                }
-            },
-            {
-                "test_split": {
                     "BLEU-4": bleu,
                     "CIDEr": cider,
                     "Total": (bleu + cider)/2,
@@ -145,4 +141,4 @@ def evaluate_bleu_cider(test_annotation_file, user_submission_file, phase_codena
 
 if __name__ == '__main__':
     # evaluate("answer_sheet.json", "test_eval.json", "test")
-    evaluate("../annotations/capt_renamed_test_annotations.json", "test_eval_bleu.json", "test")
+    evaluate("../annotations/capt_renamed_test_annotations.json", "test_eval_bleu.json", "cond")

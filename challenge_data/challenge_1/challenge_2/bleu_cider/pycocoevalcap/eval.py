@@ -7,7 +7,7 @@ from .cider.cider import Cider
 import numpy as np
 import json
 
-def eval(gts,res):
+def eval2(gts,res):
     scorer = Bleu(n=4)
     s1, _ = scorer.compute_score(gts, res)
     
