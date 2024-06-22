@@ -1,73 +1,10 @@
-import json
-
-
-def load_data(annoation_file):
-    with open(annoation_file, 'r') as f:
-        data = json.load(f)
-
-    return data
-
-def build_user_dict(user_dict):
-    user_answers = {}
-    for instance in user_dict:
-        name = instance["name"]
-        if name not in user_answers:
-            user_answers[name] = {}
-        for attribute in instance["attributes"]:
-            key = attribute["key"]
-            user_answers[name][key] = attribute["answer"]
-    return user_answers
-
-def calculate_accuracy(test_annotation_file, user_submission_file):
-    """
-    Calculate the accuracy of user submissions against the ground truth annotations.
-
-    Parameters:
-    test_annotation_file (str): Path to the JSON file containing the ground truth annotations.
-    user_submission_file (str): Path to the JSON file containing the user's submissions.
-
-    Returns:
-    float: The accuracy of the user submissions.
-    """
-
-    # Load data from the files
-    gt_dict = load_data(test_annotation_file)
-    user_dict = load_data(user_submission_file)
-
-    user_answers = build_user_dict(user_dict)
-
-    # Initialize a list to hold valid comparisons
-    valid_comparisons = []
-
-    # Iterate through the ground truth annotations
-    for instance in gt_dict:
-        name = instance["name"]
-        for attribute in instance["attributes"]:
-            key = attribute['key']
-            gt = attribute['answer']
-
-            user_answer = user_answers.get(name, {}).get(key, "")
-
-            if user_answer == "":
-                print(f"Missing answer for {name} of {key}")
-                continue
-            if user_answer not in {'After', 'Before'}:
-                print(f"Unexpected answer '{user_answer}' for {name} of {key}")
-                continue
-
-            # Add the valid comparison to the list
-            valid_comparisons.append({"name": name, "key": key, "gt_answer": gt, "user_answer": user_answer})
-
-    # Calculate the number of correct predictions
-    correct_predictions = sum(1 for item in valid_comparisons if item["gt_answer"] == item["user_answer"])
-
-    # Calculate accuracy
-    accuracy = correct_predictions / len(gt_dict) if len(gt_dict) > 0 else 0
-    return accuracy
+import random
+#from challenge_1.main import evaluate_accuracy
+#from challenge_2.main import evaluate_bleu_cider
 
 
 def evaluate(test_annotation_file, user_submission_file, phase_codename, **kwargs):
-    print("Starting test.....")
+    print("Starting Evaluation.....")
     """
     Evaluates the submission for a particular challenge phase and returns score
     Arguments:
@@ -105,33 +42,41 @@ def evaluate(test_annotation_file, user_submission_file, phase_codename, **kwarg
         }
     """
     output = {}
-    if phase_codename == "dev":
-        print("Evaluating for Dev Phase")
-        output["result"] = [
-            {
-                "train_split": {
-                    "accuracy": calculate_accuracy(test_annotation_file, user_submission_file),
-                }
-            }
-        ]
-        # To display the results in the result file
-        output["submission_result"] = output["result"][0]["train_split"]
+    if phase_codename == "Difference Image Selection Task":
+        print("Evaluating for Difference Image Selection Task")
+        results = evaluate_accuracy(test_annotation_file, user_submission_file, phase_codename, **kwargs)
+        output = results
+        # output["result"] = [
+        #     {
+        #         "test_split": {
+        #             "Accuracy": accuracy,
+        #         }
+        #     }
+        # ]
+        # # To display the results in the result file
+        # output["submission_result"] = output["result"][0]["test_split"]
         print("Completed evaluation for Dev Phase")
-    elif phase_codename == "test":
-        print("Evaluating for Test Phase")
-        output["result"] = [
-            {
-                "train_split": {
-                    "accuracy": calculate_accuracy(test_annotation_file, user_submission_file),
-                }
-            },
-            {
-                "test_split": {
-                    "accuracy": calculate_accuracy(test_annotation_file, user_submission_file),
-                }
-            },
-        ]
-        # To display the results in the result file
-        output["submission_result"] = output["result"][0]
+    elif phase_codename == "Conditional Difference Captioning Task":
+        print("Evaluating for Conditional Difference Captioning Task")
+        results = evaluate_bleu_cider(test_annotation_file, user_submission_file, phase_codename, **kwargs)
+        output = results
+        # output["result"] = [
+        #     {
+        #         "test_split": {
+        #
+        #             "Total": random.randint(0, 99),
+        #         }
+        #     },
+        #     {
+        #         "test_split": {
+        #             "Metric1": random.randint(0, 99),
+        #             "Metric2": random.randint(0, 99),
+        #             "Metric3": random.randint(0, 99),
+        #             "Total": random.randint(0, 99),
+        #         }
+        #     },
+        # ]
+        # # To display the results in the result file
+        # output["submission_result"] = output["result"][0]
         print("Completed evaluation for Test Phase")
     return output

@@ -1,1 +1,23 @@
-{}
+{
+    "name": "test/v1_1010_oboe",
+    "attributes": [
+        {
+            "key": "shape_0",
+            "answer": "X"
+        },
+        {
+            "key": "color_1",
+            "answer": "X"
+        },
+        {
+            "key": "texture_2",
+            "answer": "X"
+        },
+        {
+            "key": "texture_3",
+            "answer": "X"
+        }
+    ]
+  }
+  
+  

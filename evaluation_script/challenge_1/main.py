@@ -117,14 +117,10 @@ def evaluate_accuracy(test_annotation_file, user_submission_file, phase_codename
         # To display the results in the result file
         output["submission_result"] = output["result"][0]["train_split"]
         print("Completed evaluation for Dev Phase")
-    elif phase_codename == "test":
+    elif phase_codename == "dif":
         print("Evaluating for Test Phase")
         output["result"] = [
-            {
-                "train_split": {
-                    "accuracy": calculate_accuracy(test_annotation_file, user_submission_file),
-                }
-            },
+
             {
                 "test_split": {
                     "accuracy": calculate_accuracy(test_annotation_file, user_submission_file),

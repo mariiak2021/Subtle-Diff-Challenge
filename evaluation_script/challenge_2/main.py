@@ -118,19 +118,12 @@ def evaluate_bleu_cider(test_annotation_file, user_submission_file, phase_codena
         # To display the results in the result file
         output["submission_result"] = output["result"][0]["train_split"]
         print("Completed evaluation for Dev Phase")
-    elif phase_codename == "test":
+    elif phase_codename == "cond":
         print("Evaluating for Test Phase")
         bleu, cider = get_bleu_cider_gpt(test_annotation_file, user_submission_file)
         output["result"] = [
             {
                 "train_split": {
-                    "BLEU-4": bleu,
-                    "CIDEr": cider,
-                    "Total": (bleu + cider)/2,
-                }
-            },
-            {
-                "test_split": {
                     "BLEU-4": bleu,
                     "CIDEr": cider,
                     "Total": (bleu + cider)/2,
@@ -145,4 +138,4 @@ def evaluate_bleu_cider(test_annotation_file, user_submission_file, phase_codena
 
 if __name__ == '__main__':
     # evaluate("answer_sheet.json", "test_eval.json", "test")
-    evaluate("../annotations/capt_renamed_test_annotations.json", "test_eval_bleu.json", "test")
+    evaluate("../annotations/capt_renamed_test_annotations.json", "test_eval_bleu.json", "cond")
