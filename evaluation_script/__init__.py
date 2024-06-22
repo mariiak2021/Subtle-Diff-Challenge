@@ -7,6 +7,8 @@ import os
 import subprocess
 import sys
 from pathlib import Path
+from challenge_1.main import evaluate_accuracy
+from challenge_2.main import evaluate_bleu_cider
 
 def install(package):
     # Install a pip python package
