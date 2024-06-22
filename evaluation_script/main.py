@@ -1,6 +1,6 @@
 import random
-from challenge_1.main import evaluate_accuracy
-from challenge_2.main import evaluate_bleu_cider
+#from challenge_1.main import evaluate_accuracy
+#from challenge_2.main import evaluate_bleu_cider
 
 
 def evaluate(test_annotation_file, user_submission_file, phase_codename, **kwargs):
