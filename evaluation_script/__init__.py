@@ -47,5 +47,4 @@ def install(package):
 
 install ("numpy")
 from .main import evaluate
-from phase_1.main import evaluate_accuracy
-from phase_2.main import evaluate_bleu_cider
+

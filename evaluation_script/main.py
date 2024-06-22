@@ -2,9 +2,9 @@ import random
 
 #from challenge_1.main import evaluate_accuracy
 #from challenge_2.main import evaluate_bleu_cider
-#from challenge_1.main import evaluate_accuracy
-#from challenge_2.main import evaluate_bleu_cider
-from evaluation_script import evaluate_accuracy, evaluate_bleu_cider
+from phase_1.main import evaluate_accuracy
+from phase_2.main import evaluate_bleu_cider
+
 
 def evaluate(test_annotation_file, user_submission_file, phase_codename, **kwargs):
     print("Starting Evaluation.....1")
