@@ -47,5 +47,5 @@ def install(package):
 
 install ("numpy")
 from .main import evaluate
-
+from .main import evaluate_accuracy, evaluate_bleu_cider
 
