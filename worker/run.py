@@ -1,10 +1,11 @@
 import importlib
 import os
 import sys
+from pathlib import Path
 
 
 def get_curr_working_dir():
-    curr_working_dir = os.getcwd()
+    curr_working_dir = Path.cwd()
     return curr_working_dir
 
 
@@ -16,10 +17,10 @@ def run():
     challenge_id = 1
     challenge_phase = "cond"  # Add the challenge phase codename to be tested
     annotation_file_path = "{}/annotations/capt_renamed_test_annotations.json".format(
-        current_working_directory
+        current_working_directory.parent
     )  # Add the test annotation file path
     user_submission_file_path = "{}/submission.json".format(
-        current_working_directory
+        current_working_directory.parent
     )  # Add the sample submission file path
 
     CHALLENGE_IMPORT_STRING = "challenge_data.challenge_1"
