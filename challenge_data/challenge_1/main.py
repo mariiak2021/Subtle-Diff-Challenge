@@ -49,38 +49,12 @@ def evaluate(test_annotation_file, user_submission_file, phase_codename, **kwarg
         print("Evaluating for Difference Image Selection Task")
         results = evaluate_accuracy(test_annotation_file, user_submission_file, phase_codename, **kwargs)
         output = results
-        # output["result"] = [
-        #     {
-        #         "test_split": {
-        #             "Accuracy": accuracy,
-        #         }
-        #     }
-        # ]
-        # # To display the results in the result file
-        # output["submission_result"] = output["result"][0]["test_split"]
+
         print("Completed evaluation for Dev Phase")
     elif phase_codename == "cond":
         print("Evaluating for Conditional Difference Captioning Task")
         results = evaluate_bleu_cider(test_annotation_file, user_submission_file, phase_codename, **kwargs)
         output = results
-        # output["result"] = [
-        #     {
-        #         "test_split": {
-        #
-        #             "Total": random.randint(0, 99),
-        #         }
-        #     },
-        #     {
-        #         "test_split": {
-        #             "Metric1": random.randint(0, 99),
-        #             "Metric2": random.randint(0, 99),
-        #             "Metric3": random.randint(0, 99),
-        #             "Total": random.randint(0, 99),
-        #         }
-        #     },
-        # ]
-        # # To display the results in the result file
-        # output["submission_result"] = output["result"][0]
         print("Completed evaluation for Test Phase")
     return output
 
