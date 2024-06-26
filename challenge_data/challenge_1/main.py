@@ -196,7 +196,7 @@ def evaluate_accuracy(test_annotation_file, user_submission_file, phase_codename
 
 import random
 import json
-from bleu_cider.pycocoevalcap.eval import eval2
+from .bleu_cider.pycocoevalcap.eval import eval2
 #import openai
 import re
 '''

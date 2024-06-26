@@ -1,10 +1,10 @@
 import random
-
+from challenge_data.challenge_1.main import evaluate as evaluate_challenge_1
 
 
 
 def evaluate(test_annotation_file, user_submission_file, phase_codename, **kwargs):
-    print("Starting Evaluation.....1")
+    print("Starting Evaluation.....")
     """
     Evaluates the submission for a particular challenge phase and returns score
     Arguments:
@@ -41,48 +41,49 @@ def evaluate(test_annotation_file, user_submission_file, phase_codename, **kwarg
             'submitted_at': u'2017-03-20T19:22:03.880652Z'
         }
     """
-    print(kwargs['submission_metadata'])
-    print ("")
-    print(phase_codename)
-    output = {}
-    if phase_codename == "dif":
-        print("Evaluating for Difference Image Selection Task")
-        results = evaluate_accuracy(test_annotation_file, user_submission_file, phase_codename, **kwargs)
-        output = results
-        # output["result"] = [
-        #     {
-        #         "test_split": {
-        #             "Accuracy": accuracy,
-        #         }
-        #     }
-        # ]
-        # # To display the results in the result file
-        # output["submission_result"] = output["result"][0]["test_split"]
-        print("Completed evaluation for Dev Phase")
-    elif phase_codename == "cond":
-        print("Evaluating for Conditional Difference Captioning Task")
-        results = evaluate_bleu_cider(test_annotation_file, user_submission_file, phase_codename, **kwargs)
-        output = results
-        # output["result"] = [
-        #     {
-        #         "test_split": {
-        #
-        #             "Total": random.randint(0, 99),
-        #         }
-        #     },
-        #     {
-        #         "test_split": {
-        #             "Metric1": random.randint(0, 99),
-        #             "Metric2": random.randint(0, 99),
-        #             "Metric3": random.randint(0, 99),
-        #             "Total": random.randint(0, 99),
-        #         }
-        #     },
-        # ]
-        # # To display the results in the result file
-        # output["submission_result"] = output["result"][0]
-        print("Completed evaluation for Test Phase")
-    return output
+    # print(kwargs['submission_metadata'])
+    # print ("")
+    # print(phase_codename)
+    # output = {}
+    # if phase_codename == "dif":
+    #     print("Evaluating for Difference Image Selection Task")
+    #     results = evaluate_accuracy(test_annotation_file, user_submission_file, phase_codename, **kwargs)
+    #     output = results
+    #     # output["result"] = [
+    #     #     {
+    #     #         "test_split": {
+    #     #             "Accuracy": accuracy,
+    #     #         }
+    #     #     }
+    #     # ]
+    #     # # To display the results in the result file
+    #     # output["submission_result"] = output["result"][0]["test_split"]
+    #     print("Completed evaluation for Dev Phase")
+    # elif phase_codename == "cond":
+    #     print("Evaluating for Conditional Difference Captioning Task")
+    #     results = evaluate_bleu_cider(test_annotation_file, user_submission_file, phase_codename, **kwargs)
+    #     output = results
+    #     # output["result"] = [
+    #     #     {
+    #     #         "test_split": {
+    #     #
+    #     #             "Total": random.randint(0, 99),
+    #     #         }
+    #     #     },
+    #     #     {
+    #     #         "test_split": {
+    #     #             "Metric1": random.randint(0, 99),
+    #     #             "Metric2": random.randint(0, 99),
+    #     #             "Metric3": random.randint(0, 99),
+    #     #             "Total": random.randint(0, 99),
+    #     #         }
+    #     #     },
+    #     # ]
+    #     # # To display the results in the result file
+    #     # output["submission_result"] = output["result"][0]
+    #     print("Completed evaluation for Test Phase")
+    # return output
+    return evaluate_challenge_1(test_annotation_file, user_submission_file, phase_codename, **kwargs)
 
 import json
 
